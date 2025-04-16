@@ -28,7 +28,7 @@ class Agent {
     let round = 0;
 
     while (nextPrompt && round < maxRounds) {
-      const response = await conversation.generate(nextPrompt);
+      const response = await conversation.generate(nextPrompt, 0);
       const parsed = parseXmlFunctionCalls(response);
 
       const toolsToCall = parsed.functionCalls

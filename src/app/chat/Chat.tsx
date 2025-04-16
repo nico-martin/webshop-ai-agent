@@ -121,6 +121,7 @@ const Chat: React.FC = () => {
             nextPrompt,
             render: () => (
               <Disclosure
+                key={similarFAQs.map((faq) => faq.id).join("-")}
                 as="div"
                 className="flex flex-col gap-1 rounded-lg border border-purple-300 bg-white p-3 text-sm"
               >

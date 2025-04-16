@@ -14,10 +14,21 @@ class WebLLM {
       { role: "system", content: systemPrompt },
     ];
 
+    console.log("-- SYSTEM PROMPT --");
+    console.log(systemPrompt);
+
     return {
       generate: async (prompt: string, temperature: number = 1) => {
         messages.push({ role: "user", content: prompt });
+        console.log("-- MESSAGES --");
+        console.log(messages);
+
         if (!this.engine) {
+          /*
+          this.engine = await CreateMLCEngine(GEMMA_2_2B_ID,{
+            initProgressCallback: console.log,
+          });
+           */
           this.engine = await CreateMLCEngine(GEMMA_2_9B_CONFIG.model_id, {
             initProgressCallback: console.log,
             appConfig: {
