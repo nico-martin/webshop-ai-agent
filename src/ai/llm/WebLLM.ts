@@ -12,6 +12,8 @@ class WebLLM {
       { role: "system", content: systemPrompt },
     ];
 
+    console.log(systemPrompt);
+
     return {
       generate: async (prompt: string, temperature: number = 1) => {
         messages.push({ role: "user", content: prompt });
@@ -20,6 +22,8 @@ class WebLLM {
             initProgressCallback: console.log,
           });
         }
+
+        console.log("MESSAGES", messages);
 
         await this.engine.chat.completions.create({
           messages,
