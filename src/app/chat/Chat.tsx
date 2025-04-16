@@ -2,12 +2,16 @@ import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 import WebLLM from "../../ai/llm/WebLLM.ts";
+import usePageContext from "../../store/provider/pageContext/usePageContext.ts";
 import { Loader } from "../../theme";
 import cn from "../../utils/classnames.ts";
+import mdToHtml from "../../utils/converter/mdToHtml.ts";
 import ChatForm from "./ChatForm.tsx";
 
 const Chat: React.FC = () => {
   const [chatOpen, setChatOpen] = React.useState<boolean>(false);
+
+  const { pageContext } = usePageContext();
 
   const [thinking, setThinking] = React.useState<boolean>(false);
   const [response, setResponse] = React.useState<string>("");
@@ -34,9 +38,16 @@ const Chat: React.FC = () => {
               setResponse("");
               return;
             }
-            const conversation = llm.createConversation(
-              "you are a helpful AI assistant"
-            );
+            const systemPrompt = `You are a helpful AI ecommerce assistant
+You help the user navigate through the website, find products, and answer questions about products and services.
+Do not just make something up. Do not hallucinate.
+
+# Current Page: ${pageContext.title}
+${pageContext.content}`;
+
+            console.log(systemPrompt);
+
+            const conversation = llm.createConversation(systemPrompt);
 
             setThinking(true);
             const resp = await conversation.generate(prompt);
@@ -51,7 +62,7 @@ const Chat: React.FC = () => {
                 <Loader size={4} /> thinking..
               </p>
             ) : (
-              <p>{response}</p>
+              <div dangerouslySetInnerHTML={{ __html: mdToHtml(response) }} />
             )}
           </div>
         )}
