@@ -1,22 +1,93 @@
-import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  SparklesIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import React from "react";
+import { useNavigate } from "react-router";
+import { z } from "zod";
 
-import WebLLM from "../../ai/llm/WebLLM.ts";
+import Agent from "../../ai/agent/Agent.ts";
+import { Category, Color, Size } from "../../store/products.ts";
 import usePageContext from "../../store/provider/pageContext/usePageContext.ts";
 import { Loader } from "../../theme";
+import tool from "../../utils/agent/tool.ts";
 import cn from "../../utils/classnames.ts";
 import mdToHtml from "../../utils/converter/mdToHtml.ts";
 import ChatForm from "./ChatForm.tsx";
 
 const Chat: React.FC = () => {
   const [chatOpen, setChatOpen] = React.useState<boolean>(false);
+  const navigate = useNavigate();
 
   const { pageContext } = usePageContext();
 
   const [thinking, setThinking] = React.useState<boolean>(false);
   const [response, setResponse] = React.useState<string>("");
+  const [callbackElements, setCallbackElements] = React.useState<
+    Array<React.ReactElement>
+  >([]);
 
-  const llm = React.useMemo(() => new WebLLM(), []);
+  const agent = React.useMemo(() => {
+    const agent = new Agent();
+    agent.addTool(
+      "openProductOverview",
+      tool({
+        description: "open the product overview page with the given filters",
+        parameters: z.object({
+          categories: z
+            .array(z.nativeEnum(Category))
+            .describe("The categories of the products to display")
+            .optional(),
+          colors: z
+            .array(z.nativeEnum(Color))
+            .describe("The colors of the products to display")
+            .optional(),
+          sizes: z
+            .array(z.nativeEnum(Size))
+            .describe("The sizes of the products to display")
+            .optional(),
+        }),
+        execute: async (data) => {
+          const query = Object.entries(data)
+            .filter(([, value]) => value)
+            .map(([key, value]) => `${key}=${value}`)
+            .join("&");
+          navigate(`/products?${query}`);
+          return {
+            nextPrompt: `Tell the user you just opened the product overview with ${query}`,
+            render: () => (
+              <p
+                className={cn(
+                  "flex items-center gap-3 rounded-lg border bg-white p-3 text-sm text-gray-500 shadow-md"
+                )}
+              >
+                <CheckIcon className="size-8 text-lime-700" />
+                <span>Open Product Overview with {query}</span>
+              </p>
+            ),
+          };
+        },
+        examples: [
+          {
+            query: "Show me all the T-Shirts in L",
+            parameters: {
+              categories: [Category.CLOTHING],
+              sizes: [Size.L],
+            },
+          },
+          {
+            query: "Show me all red and green products",
+            parameters: {
+              colors: [Color.RED, Color.GREEN],
+            },
+          },
+        ],
+      })
+    );
+
+    return agent;
+  }, [navigate]);
 
   return (
     <React.Fragment>
@@ -36,6 +107,7 @@ const Chat: React.FC = () => {
           onSubmit={async (prompt) => {
             if (!prompt) {
               setResponse("");
+              setCallbackElements([]);
               return;
             }
             const systemPrompt = `You are a helpful AI ecommerce assistant
@@ -45,12 +117,13 @@ Do not just make something up. Do not hallucinate.
 # Current Page: ${pageContext.title}
 ${pageContext.content}`;
 
-            console.log(systemPrompt);
-
-            const conversation = llm.createConversation(systemPrompt);
-
             setThinking(true);
-            const resp = await conversation.generate(prompt);
+            const resp = await agent.processPrompt(
+              systemPrompt,
+              prompt,
+              4,
+              (render) => setCallbackElements((prev) => [...prev, render])
+            );
             setResponse(resp);
             setThinking(false);
           }}
@@ -62,7 +135,13 @@ ${pageContext.content}`;
                 <Loader size={4} /> thinking..
               </p>
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: mdToHtml(response) }} />
+              <div className="flex flex-col gap-4">
+                {callbackElements.map((element) => element)}
+                <div
+                  className="font-light text-gray-700 [&>li]:ml-5 [&>ol]:my-2 [&>ol]:ml-4 [&>ol]:list-decimal [&>ul]:my-2 [&>ul]:ml-5 [&>ul]:list-disc"
+                  dangerouslySetInnerHTML={{ __html: mdToHtml(response) }}
+                />
+              </div>
             )}
           </div>
         )}
