@@ -4,6 +4,8 @@ import {
   MLCEngine,
 } from "@mlc-ai/web-llm";
 
+import { GEMMA_2_9B_CONFIG } from "../../utils/agent/webllm.ts";
+
 class WebLLM {
   private engine: MLCEngine | null = null;
 
@@ -12,18 +14,17 @@ class WebLLM {
       { role: "system", content: systemPrompt },
     ];
 
-    console.log(systemPrompt);
-
     return {
       generate: async (prompt: string, temperature: number = 1) => {
         messages.push({ role: "user", content: prompt });
         if (!this.engine) {
-          this.engine = await CreateMLCEngine("gemma-2-2b-it-q4f16_1-MLC", {
+          this.engine = await CreateMLCEngine(GEMMA_2_9B_CONFIG.model_id, {
             initProgressCallback: console.log,
+            appConfig: {
+              model_list: [GEMMA_2_9B_CONFIG],
+            },
           });
         }
-
-        console.log("MESSAGES", messages);
 
         await this.engine.chat.completions.create({
           messages,
