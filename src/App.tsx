@@ -13,7 +13,7 @@ import Footer from "./app/template/Footer.tsx";
 import Header from "./app/template/Header.tsx";
 import CartContextProvider from "./store/provider/cart/CartContextProvider.tsx";
 import PageContextProvider from "./store/provider/pageContext/PageContextProvider.tsx";
-import combineProvider from "./utils/combineProvider.tsx";
+import combineProvider from "./utils/combineProvider";
 
 const App: React.FC = () => {
   const { pathname } = useLocation();
