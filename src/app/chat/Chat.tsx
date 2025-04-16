@@ -1,13 +1,22 @@
 import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import {
+  ArrowRightIcon,
   CheckIcon,
+  LinkIcon,
   SparklesIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import React from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { z } from "zod";
 
 import Agent from "../../ai/agent/Agent.ts";
+import findSimilarFAQs from "../../ai/vectorSearch/findSimilarFAQs.ts";
 import { Category, Color, Size } from "../../store/products.ts";
 import usePageContext from "../../store/provider/pageContext/usePageContext.ts";
 import { Loader } from "../../theme";
@@ -30,6 +39,7 @@ const Chat: React.FC = () => {
 
   const agent = React.useMemo(() => {
     const agent = new Agent();
+
     agent.addTool(
       "openProductOverview",
       tool({
@@ -80,6 +90,76 @@ const Chat: React.FC = () => {
             query: "Show me all red and green products",
             parameters: {
               colors: [Color.RED, Color.GREEN],
+            },
+          },
+        ],
+      })
+    );
+
+    agent.addTool(
+      "faqSearch",
+      tool({
+        description:
+          "if the user asks any questions about the store, search for the right answer in the FAQs",
+        parameters: z.object({
+          question: z
+            .string()
+            .nonempty()
+            .describe(
+              "The exact question the user asked optimized for similarity search."
+            ),
+        }),
+        execute: async ({ question }) => {
+          const similarFAQs = await findSimilarFAQs(question);
+          const nextPrompt = similarFAQs
+            .map(
+              (faq) =>
+                `Here are more informations to answer the question:\n\n${faq.question + "\n" + faq.answer}`
+            )
+            .join("\n\n");
+          return {
+            nextPrompt,
+            render: () => (
+              <Disclosure
+                as="div"
+                className="flex flex-col gap-1 rounded-lg border border-purple-300 bg-white p-3 text-sm"
+              >
+                <DisclosureButton className="group flex cursor-pointer items-center justify-between font-bold">
+                  <span className="group-data-[hover]:text-black/80">
+                    Sources ({similarFAQs.length})
+                  </span>
+                  <ChevronDownIcon className="size-4 group-data-[open]:rotate-180" />
+                </DisclosureButton>
+                <DisclosurePanel
+                  transition
+                  as="ul"
+                  className="mt-3 flex flex-col"
+                >
+                  {similarFAQs.map((faq) => (
+                    <li
+                      className="mt-2 border-t border-gray-200 pt-2 first:mt-0 first:border-0 first:pt-0"
+                      key={faq.id}
+                    >
+                      <NavLink
+                        className="group flex w-full items-center gap-1 text-purple-600"
+                        to={`/services/faq?openFaq=${faq.id}`}
+                      >
+                        <LinkIcon className="size-4" />
+                        <span>{faq.question}</span>
+                        <ArrowRightIcon className="ml-auto size-4 -translate-x-1 opacity-0 transition group-hover:-translate-x-0 group-hover:opacity-100" />
+                      </NavLink>
+                    </li>
+                  ))}
+                </DisclosurePanel>
+              </Disclosure>
+            ),
+          };
+        },
+        examples: [
+          {
+            query: "What is the return policy?",
+            parameters: {
+              question: "What is the return policy?",
             },
           },
         ],
