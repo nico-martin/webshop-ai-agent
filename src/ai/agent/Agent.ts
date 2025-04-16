@@ -53,7 +53,10 @@ class Agent {
         .join("\n\n");
     }
 
-    return finalAnswer;
+    return (
+      finalAnswer ||
+      "Tell the user that you have not been able to answer the question"
+    );
   };
 }
 
