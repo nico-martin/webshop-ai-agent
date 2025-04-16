@@ -1,6 +1,7 @@
 import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
+import WebLLM from "../../ai/llm/WebLLM.ts";
 import { Loader } from "../../theme";
 import cn from "../../utils/classnames.ts";
 import ChatForm from "./ChatForm.tsx";
@@ -10,6 +11,8 @@ const Chat: React.FC = () => {
 
   const [thinking, setThinking] = React.useState<boolean>(false);
   const [response, setResponse] = React.useState<string>("");
+
+  const llm = React.useMemo(() => new WebLLM(), []);
 
   return (
     <React.Fragment>
@@ -31,9 +34,13 @@ const Chat: React.FC = () => {
               setResponse("");
               return;
             }
+            const conversation = llm.createConversation(
+              "you are a helpful AI assistant"
+            );
+
             setThinking(true);
-            await new Promise((resolve) => window.setTimeout(resolve, 500));
-            setResponse(prompt);
+            const resp = await conversation.generate(prompt);
+            setResponse(resp);
             setThinking(false);
           }}
         />
