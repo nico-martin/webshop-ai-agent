@@ -1,5 +1,5 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { generateObject } from "ai";
+import { generateObject, generateText } from "ai";
 import { z } from "zod";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_GENERATIVE_AI_API_KEY;
@@ -8,9 +8,19 @@ const google = createGoogleGenerativeAI({
   apiKey: API_KEY,
 });
 
-class AiSdkAgent {
-  public processPrompt = async (systemPrompt: string, userPrompt: string) => {
-    const output = await generateObject({
+class AiSdk {
+  public generateText = async (systemPrompt: string, userPrompt: string) => {
+    const { text } = await generateText({
+      system: systemPrompt,
+      model: google("models/gemini-2.0-flash-exp"),
+      prompt: userPrompt,
+    });
+
+    return text;
+  };
+
+  public generateObject = async (systemPrompt: string, userPrompt: string) => {
+    const { object } = await generateObject({
       system: systemPrompt,
       model: google("models/gemini-2.0-flash-exp"),
       prompt: userPrompt,
@@ -22,10 +32,10 @@ class AiSdkAgent {
       ),
     });
 
-    console.log(output.object);
+    console.log(object);
 
-    return output.object.map((film) => film.title).join(", ");
+    return object.map((movie) => movie.title).join(", ");
   };
 }
 
-export default AiSdkAgent;
+export default AiSdk;
