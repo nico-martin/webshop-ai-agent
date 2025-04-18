@@ -28,6 +28,11 @@ class AiSdk {
         z.object({
           title: z.string(),
           description: z.string(),
+          date: z
+            .string()
+            .date()
+            .transform((value) => new Date(value))
+            .optional(),
         })
       ),
     });
