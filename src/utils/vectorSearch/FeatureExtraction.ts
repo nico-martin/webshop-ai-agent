@@ -1,20 +1,21 @@
 import { FeatureExtractionPipeline, pipeline } from "@huggingface/transformers";
 
 class FeatureExtraction {
-  private pipeline: FeatureExtractionPipeline | null = null;
+  private pipe: FeatureExtractionPipeline | null = null;
 
   public extract = async (text: string): Promise<Array<number>> => {
-    if (!this.pipeline) {
-      this.pipeline = await pipeline(
+    if (!this.pipe) {
+      const pipe = await pipeline(
         "feature-extraction",
-        "Xenova/all-MiniLM-L6-v2",
+        "onnx-community/all-MiniLM-L6-v2-ONNX",
         {
           progress_callback: console.log,
           device: "webgpu",
         }
       );
+      this.pipe = pipe;
     }
-    const output = await this.pipeline(text, {
+    const output = await this.pipe(text, {
       pooling: "mean",
       normalize: true,
     });

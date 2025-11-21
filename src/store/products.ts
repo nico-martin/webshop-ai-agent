@@ -395,5 +395,6 @@ export const PRODUCTS: Array<Product> = [
     ...product,
     image: product.image || `/products/coming-soon.webp`,
     id,
+    currency: "€",
   };
 });

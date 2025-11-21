@@ -1,6 +1,6 @@
 import { FAQ_WITH_ID } from "../../store/faq.ts";
-import FeatureExtraction from "../../utils/vectorSearch/FeatureExtraction.ts";
-import cosineSimilarity from "../../utils/vectorSearch/cosineSimilarity.ts";
+import FeatureExtraction from "./FeatureExtraction.ts";
+import cosineSimilarity from "./cosineSimilarity.ts";
 
 const extractor = new FeatureExtraction();
 
