@@ -1,4 +1,16 @@
-import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  LinkIcon,
+  SparklesIcon,
+  XMarkIcon,
+} from "@heroicons/react/20/solid";
 import {
   AutoModelForCausalLM,
   AutoTokenizer,
@@ -8,7 +20,7 @@ import {
   Tensor,
 } from "@huggingface/transformers";
 import { type FC, type ReactElement, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 import { Category, Color, Size } from "../../store/products.ts";
 import usePageContext from "../../store/provider/pageContext/usePageContext.ts";
@@ -85,6 +97,17 @@ const Chat: FC = () => {
           .map(([key, value]) => `${key}=${value}`)
           .join("&");
         navigate(`/products?${query}`);
+        setCallbackElements((elements) => [
+          ...elements,
+          <p
+            className={cn(
+              "flex items-center gap-3 rounded-lg border bg-white p-3 text-sm text-gray-500 shadow-md"
+            )}
+          >
+            <CheckIcon className="size-8 text-lime-700" />
+            <span>Open Product Overview with {query}</span>
+          </p>,
+        ]);
         return `Tell the user you just opened the product overview with ${query}`;
       },
     },
@@ -107,6 +130,38 @@ const Chat: FC = () => {
       execute: async (args) => {
         const { question } = args;
         const similarFAQs = await findSimilarFAQs(question);
+        setCallbackElements((elements) => [
+          ...elements,
+          <Disclosure
+            key={similarFAQs.map((faq) => faq.id).join("-")}
+            as="div"
+            className="flex flex-col gap-1 rounded-lg border border-purple-300 bg-white p-3 text-sm"
+          >
+            <DisclosureButton className="group flex cursor-pointer items-center justify-between font-bold">
+              <span className="group-data-[hover]:text-black/80">
+                Sources ({similarFAQs.length})
+              </span>
+              <ChevronDownIcon className="size-4 group-data-[open]:rotate-180" />
+            </DisclosureButton>
+            <DisclosurePanel transition as="ul" className="mt-3 flex flex-col">
+              {similarFAQs.map((faq) => (
+                <li
+                  className="mt-2 border-t border-gray-200 pt-2 first:mt-0 first:border-0 first:pt-0"
+                  key={faq.id}
+                >
+                  <NavLink
+                    className="group flex w-full items-center gap-1 text-purple-600"
+                    to={`/services/faq?openFaq=${faq.id}`}
+                  >
+                    <LinkIcon className="size-4" />
+                    <span>{faq.question}</span>
+                    <ArrowRightIcon className="ml-auto size-4 -translate-x-1 opacity-0 transition group-hover:-translate-x-0 group-hover:opacity-100" />
+                  </NavLink>
+                </li>
+              ))}
+            </DisclosurePanel>
+          </Disclosure>,
+        ]);
         return similarFAQs
           .map(
             (faq) =>
@@ -116,6 +171,7 @@ const Chat: FC = () => {
       },
     },
   ];
+  const pastKeyValues = useRef<any>(null);
 
   const pipe = useRef<{
     tokenizer: PreTrainedTokenizer;
@@ -178,11 +234,18 @@ const Chat: FC = () => {
       attention_mask: number[] | number[][] | Tensor;
     };
 
-    const outputTokenIds = (await pipe.current.model.generate({
+    const started = performance.now();
+    const { sequences, past_key_values } = (await pipe.current.model.generate({
       ...input,
       // @ts-expect-error
       max_new_tokens: 512,
-    })) as Tensor;
+      past_key_values: pastKeyValues.current,
+      return_dict_in_generate: true,
+    })) as { sequences: Tensor; past_key_values: any };
+    const ended = performance.now();
+    console.log("Time: ", ended - started, "ms");
+
+    pastKeyValues.current = past_key_values;
 
     const lengthOfInput = input.input_ids.dims[1];
     const response = pipe.current.tokenizer.batch_decode(
@@ -190,7 +253,7 @@ const Chat: FC = () => {
        * First argument (null): Don't slice dimension 0 (the batch dimension) - keep all batches
        * Second argument ([lengthOfInput, Number.MAX_SAFE_INTEGER]): For dimension 1 (the sequence/token dimension), slice from index lengthOfInput to the end
        */
-      outputTokenIds.slice(null, [lengthOfInput, Number.MAX_SAFE_INTEGER]),
+      sequences.slice(null, [lengthOfInput, Number.MAX_SAFE_INTEGER]),
       {
         skip_special_tokens: true, // removes the <|end_of_text|>
       }
