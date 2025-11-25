@@ -94,7 +94,12 @@ const Chat: FC = () => {
       execute: async (args) => {
         const query = Object.entries(args)
           .filter(([, value]) => value)
-          .map(([key, value]) => `${key}=${value}`)
+          .map(([key, value]) =>
+            value
+              .split(",")
+              .map((value: string) => `${key}=${value.trim()}`)
+              .join("&")
+          )
           .join("&");
         navigate(`/products?${query}`);
         setCallbackElements((elements) => [

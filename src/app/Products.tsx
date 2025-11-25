@@ -1,5 +1,5 @@
-import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import React from "react";
+import { useSearchParams } from "react-router";
 
 import { PRODUCTS } from "../store/products.ts";
 import CurrentPageContext from "../store/provider/pageContext/CurrentPageContext.tsx";
@@ -10,18 +10,13 @@ import ProductOverview from "./shop/ProductOverview.tsx";
 import MainLayout from "./template/MainLayout.tsx";
 
 const Products: React.FC = () => {
-  const [categories] = useQueryState(
-    "categories",
-    parseAsArrayOf(parseAsString).withDefault([])
-  );
-  const [colors] = useQueryState(
-    "colors",
-    parseAsArrayOf(parseAsString).withDefault([])
-  );
-  const [sizes] = useQueryState(
-    "sizes",
-    parseAsArrayOf(parseAsString).withDefault([])
-  );
+  const [searchParams] = useSearchParams();
+
+  const categories = searchParams.getAll("categories");
+  const colors = searchParams.getAll("colors");
+  const sizes = searchParams.getAll("sizes");
+
+  console.log({ categories, colors, sizes });
 
   const filteredProducts = React.useMemo(
     () =>

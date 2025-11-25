@@ -1,6 +1,5 @@
-import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import React from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router";
+import { HashRouter, Route, Routes, useLocation } from "react-router";
 
 import Cart from "./app/Cart.tsx";
 import Faq from "./app/Faq.tsx";
@@ -45,7 +44,7 @@ const App: React.FC = () => {
 
 const Provider = combineProvider(
   NuqsAdapter,
-  BrowserRouter,
+  HashRouter,
   CartContextProvider,
   PageContextProvider
 );

@@ -45,7 +45,6 @@ This project supports two env variables in a `.env` file in the root of the proj
 *   **[Headless UI](https://headlessui.com/)**: For accessible UI components.
 *   **[Heroicons](https://heroicons.com/)**: For icons.
 *   **[Tailwind CSS](https://tailwindcss.com/)**: For rapid UI development and styling.
-*   **[Nuqs](https://nuqs.vercel.app/)**: For managing URL query parameters.
 *   **[Showdown](https://showdownjs.com/)**: For converting Markdown to HTML.
 
 ### Build process
