@@ -7,7 +7,7 @@ import Home from "./app/Home.tsx";
 import Page from "./app/Page.tsx";
 import Product from "./app/Product.tsx";
 import Products from "./app/Products.tsx";
-import Chat from "./app/chat/ChatAgent.tsx";
+import Chat from "./app/chat/Chat.tsx";
 import Footer from "./app/template/Footer.tsx";
 import Header from "./app/template/Header.tsx";
 import CartContextProvider from "./store/provider/cart/CartContextProvider.tsx";
