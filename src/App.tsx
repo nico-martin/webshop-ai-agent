@@ -1,6 +1,5 @@
-import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import React from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router";
+import { HashRouter, Route, Routes, useLocation } from "react-router";
 
 import Cart from "./app/Cart.tsx";
 import Faq from "./app/Faq.tsx";
@@ -8,7 +7,7 @@ import Home from "./app/Home.tsx";
 import Page from "./app/Page.tsx";
 import Product from "./app/Product.tsx";
 import Products from "./app/Products.tsx";
-import Chat from "./app/chat/Chat.tsx";
+import Chat from "./app/chat/ChatAgent.tsx";
 import Footer from "./app/template/Footer.tsx";
 import Header from "./app/template/Header.tsx";
 import CartContextProvider from "./store/provider/cart/CartContextProvider.tsx";
@@ -44,8 +43,7 @@ const App: React.FC = () => {
 };
 
 const Provider = combineProvider(
-  NuqsAdapter,
-  BrowserRouter,
+  HashRouter,
   CartContextProvider,
   PageContextProvider
 );

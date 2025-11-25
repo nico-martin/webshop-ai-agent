@@ -1,5 +1,5 @@
-import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import React from "react";
+import { useSearchParams } from "react-router";
 
 import { CATEGORIES, COLORS, SIZES } from "../../store/products.ts";
 import { Checkbox } from "../../theme";
@@ -35,10 +35,19 @@ const ProductFilterElement: React.FC<{
       })),
     };
   }, [type]);
-  const [checked, setChecked] = useQueryState(
-    type,
-    parseAsArrayOf(parseAsString).withDefault([])
-  );
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const checked = searchParams.getAll(type);
+
+  const setChecked = (updater: (prev: string[]) => string[]) => {
+    const newValues = updater(checked);
+    setSearchParams((params) => {
+      const newParams = new URLSearchParams(params);
+      newParams.delete(type);
+      newValues.forEach((value) => newParams.append(type, value));
+      return newParams;
+    });
+  };
 
   return (
     <div className={className}>

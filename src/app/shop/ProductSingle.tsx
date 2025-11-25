@@ -139,7 +139,10 @@ const ProductSingle: React.FC<{
           <h2 className="sr-only">Image</h2>
           <img
             alt={product.name}
-            src={product?.image || "/products/rocket-hoodie.webp"}
+            src={
+              product?.image ||
+              "https://uploads.nico.dev/webshop-ai-agent/products/rocket-hoodie.webp"
+            }
             className="lg:col-span-2 lg:row-span-2"
           />
         </div>

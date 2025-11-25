@@ -1,3 +1,15 @@
+---
+title: Webshop AI Agent
+emoji: 🐢
+colorFrom: gray
+colorTo: yellow
+sdk: static
+pinned: false
+license: mit
+app_build_command: npm run build
+app_file: dist/index.html
+---
+
 # Webshop AI Agent
 
 This is the starter repository for the workshop "Getting started with AI (-agents) in the browser" - [https://nico.dev/workshops/ai-agents](https://nico.dev/workshops/ai-agents)
@@ -45,7 +57,6 @@ This project supports two env variables in a `.env` file in the root of the proj
 *   **[Headless UI](https://headlessui.com/)**: For accessible UI components.
 *   **[Heroicons](https://heroicons.com/)**: For icons.
 *   **[Tailwind CSS](https://tailwindcss.com/)**: For rapid UI development and styling.
-*   **[Nuqs](https://nuqs.vercel.app/)**: For managing URL query parameters.
 *   **[Showdown](https://showdownjs.com/)**: For converting Markdown to HTML.
 
 ### Build process

@@ -4,18 +4,27 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import React from "react";
+import { useSearchParams } from "react-router";
 
 import { FAQ_WITH_ID } from "../store/faq.ts";
 import CurrentPageContext from "../store/provider/pageContext/CurrentPageContext.tsx";
 import MainLayout from "./template/MainLayout.tsx";
 
 const Faq: React.FC = () => {
-  const [openIndices, setOpenIndices] = useQueryState(
-    "openFaq",
-    parseAsArrayOf(parseAsString).withDefault([])
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const openIndices = searchParams.getAll("openFaq");
+
+  const setOpenIndices = (updater: (prev: string[]) => string[]) => {
+    const newValues = updater(openIndices);
+    setSearchParams((params) => {
+      const newParams = new URLSearchParams(params);
+      newParams.delete("openFaq");
+      newValues.forEach((value) => newParams.append("openFaq", value));
+      return newParams;
+    });
+  };
+
   const [shouldScroll, setShouldScroll] = React.useState<boolean>(true);
 
   const toggleDisclosure = (id: string) => {

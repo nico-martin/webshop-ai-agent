@@ -93,7 +93,8 @@ export const PRODUCTS: Array<Product> = [
     description:
       "This fiery T-shirt features a bold flame emoji design, making it the perfect statement piece for those who love heat and energy. Comfortable fit and high-quality fabric ensure durability and style.",
     rating: 5,
-    image: "/products/fire-tshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/fire-tshirt.webp",
     delivery: Delivery.TWO_WEEKS,
   },
   {
@@ -104,7 +105,8 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.WHITE, Color.YELLOW],
     sizes: [Size.ONE_SIZE],
     rating: 4,
-    image: "/products/laughing-mug.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/laughing-mug.webp",
     description:
       "Start your day with laughter! This ceramic mug features the classic laughing emoji, bringing a fun and cheerful touch to your morning coffee or tea.",
     delivery: Delivery.IN_STOCK,
@@ -117,7 +119,8 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.BLACK, Color.BLUE],
     sizes: [Size.M, Size.L, Size.XL],
     rating: 5,
-    image: "/products/rocket-hoodie.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/rocket-hoodie.webp",
     description:
       "Blast off in style with this space-themed hoodie featuring a vibrant rocket emoji. Perfect for space lovers and those who dream big!",
     delivery: Delivery.IN_STOCK,
@@ -130,7 +133,7 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.GREEN, Color.BLUE],
     sizes: [Size.ONE_SIZE],
     rating: 4,
-    image: "/products/cactus-bag.webp",
+    image: "https://uploads.nico.dev/webshop-ai-agent/products/cactus-bag.webp",
     description:
       "Stay eco-friendly with this stylish cactus-themed tote bag. Made from durable material, it's perfect for shopping, school, or everyday use.",
     delivery: Delivery.IN_STOCK,
@@ -143,7 +146,8 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.YELLOW, Color.RED],
     sizes: [Size.M, Size.L],
     rating: 3,
-    image: "/products/pizza-socks.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/pizza-socks.webp",
     description:
       "Show off your love for pizza with these deliciously fun socks! Featuring a pizza slice pattern, these socks are perfect for food lovers.",
     delivery: Delivery.IN_STOCK,
@@ -156,7 +160,8 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.BLACK, Color.WHITE],
     sizes: [Size.M, Size.L],
     rating: 4,
-    image: "/products/guitar-tshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/guitar-tshirt.webp",
     description:
       "Rock out in style with this cool guitar-themed T-shirt. Made for music lovers, it features a striking guitar emoji design.",
     delivery: Delivery.IN_STOCK,
@@ -169,7 +174,8 @@ export const PRODUCTS: Array<Product> = [
     colors: [Color.GREEN, Color.BLACK],
     sizes: [Size.ONE_SIZE],
     rating: 5,
-    image: "/products/alien-beanie.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/alien-beanie.webp",
     description:
       "Stay warm and stylish with this alien-themed beanie. Featuring a bold green alien emoji, it's perfect for sci-fi fans!",
     delivery: Delivery.IN_STOCK,
@@ -181,7 +187,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.KITCHEN],
     colors: [Color.BLUE, Color.WHITE],
     sizes: [Size.ONE_SIZE],
-    image: "/products/bicycle-water-bottle.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/bicycle-water-bottle.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -192,7 +199,7 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES],
     colors: [Color.BLACK, Color.BLACK],
     sizes: [Size.ONE_SIZE],
-    image: "/products/dog-cap.webp",
+    image: "https://uploads.nico.dev/webshop-ai-agent/products/dog-cap.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -203,7 +210,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING, Category.ACCESSORIES],
     colors: [Color.GREEN, Color.YELLOW],
     sizes: [Size.M, Size.L],
-    image: "/products/avocado-socks.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/avocado-socks.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -214,7 +222,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES],
     colors: [Color.BLACK, Color.BLUE],
     sizes: [Size.ONE_SIZE],
-    image: "/products/cool-sunglasses.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/cool-sunglasses.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -225,7 +234,7 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING],
     colors: [Color.BLACK, Color.WHITE],
     sizes: [Size.S, Size.M, Size.L],
-    image: "/products/m-s-hoodie.webp",
+    image: "https://uploads.nico.dev/webshop-ai-agent/products/m-s-hoodie.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -236,7 +245,7 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.KITCHEN],
     colors: [Color.WHITE, Color.GRAY],
     sizes: [Size.ONE_SIZE],
-    image: "/products/cat-mug.webp",
+    image: "https://uploads.nico.dev/webshop-ai-agent/products/cat-mug.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -247,7 +256,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES, Category.NEW],
     colors: [Color.YELLOW, Color.GREEN],
     sizes: [Size.ONE_SIZE],
-    image: "/products/sunflower-bag.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/sunflower-bag.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -258,7 +268,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING],
     colors: [Color.BLACK, Color.GRAY],
     sizes: [Size.S, Size.M, Size.L],
-    image: "/products/game-tshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/game-tshirt.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -269,7 +280,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES],
     colors: [Color.RED, Color.GREEN],
     sizes: [Size.ONE_SIZE],
-    image: "/products/strawberry-earrings.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/strawberry-earrings.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -280,7 +292,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING, Category.NEW],
     colors: [Color.BLACK],
     sizes: [Size.S, Size.M, Size.L],
-    image: "/products/panda-hoodie.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/panda-hoodie.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -291,7 +304,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING],
     colors: [Color.BLUE, Color.WHITE],
     sizes: [Size.M, Size.L, Size.XL],
-    image: "/products/wave-sweatshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/wave-sweatshirt.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -302,7 +316,7 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES],
     colors: [Color.YELLOW, Color.GREEN],
     sizes: [Size.ONE_SIZE],
-    image: "/products/cactus-bag.webp",
+    image: "https://uploads.nico.dev/webshop-ai-agent/products/cactus-bag.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -313,7 +327,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES],
     colors: [Color.BLACK],
     sizes: [Size.ONE_SIZE],
-    image: "/products/pixel-sunglasses.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/pixel-sunglasses.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -324,7 +339,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES, Category.NEW],
     colors: [Color.GREEN],
     sizes: [Size.ONE_SIZE],
-    image: "/products/frog-beanie.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/frog-beanie.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -335,7 +351,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.ACCESSORIES, Category.NEW],
     colors: [Color.YELLOW, Color.BLACK],
     sizes: [Size.ONE_SIZE],
-    image: "/products/basketball-cap.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/basketball-cap.webp",
     rating: 4,
     delivery: Delivery.TWO_DAYS,
   },
@@ -346,7 +363,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING],
     colors: [Color.RED, Color.BLACK],
     sizes: [Size.M, Size.L],
-    image: "/products/racing-tshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/racing-tshirt.webp",
     rating: 4,
     delivery: Delivery.TWO_WEEKS,
   },
@@ -357,7 +375,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.KITCHEN],
     colors: [Color.RED, Color.GREEN],
     sizes: [Size.ONE_SIZE],
-    image: "/products/melon-bottle.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/melon-bottle.webp",
     rating: 4,
     delivery: Delivery.IN_STOCK,
   },
@@ -368,7 +387,8 @@ export const PRODUCTS: Array<Product> = [
     categories: [Category.CLOTHING],
     colors: [Color.WHITE, Color.BLACK],
     sizes: [Size.M, Size.L],
-    image: "/products/ghost-sweatshirt.webp",
+    image:
+      "https://uploads.nico.dev/webshop-ai-agent/products/ghost-sweatshirt.webp",
     rating: 5,
     delivery: Delivery.IN_STOCK,
   },
@@ -393,7 +413,10 @@ export const PRODUCTS: Array<Product> = [
 
   return {
     ...product,
-    image: product.image || `/products/coming-soon.webp`,
+    image:
+      product.image ||
+      `https://uploads.nico.dev/webshop-ai-agent/products/coming-soon.webp`,
     id,
+    currency: "€",
   };
 });
