@@ -43,7 +43,6 @@ const App: React.FC = () => {
 };
 
 const Provider = combineProvider(
-  NuqsAdapter,
   HashRouter,
   CartContextProvider,
   PageContextProvider
