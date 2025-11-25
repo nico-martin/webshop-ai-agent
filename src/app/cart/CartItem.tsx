@@ -36,7 +36,10 @@ const CartItem: React.FC<{
       <div className="shrink-0">
         <img
           alt={product.name}
-          src={product?.image || "/products/rocket-hoodie.webp"}
+          src={
+            product?.image ||
+            "https://uploads.nico.dev/webshop-ai-agent/products/rocket-hoodie.webp"
+          }
           className="size-24 rounded-md object-cover sm:size-48"
         />
       </div>

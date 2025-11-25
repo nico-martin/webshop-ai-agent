@@ -1,3 +1,15 @@
+---
+title: Webshop AI Agent
+emoji: 🐢
+colorFrom: gray
+colorTo: yellow
+sdk: static
+pinned: false
+license: mit
+app_build_command: npm run build
+app_file: dist/index.html
+---
+
 # Webshop AI Agent
 
 This is the starter repository for the workshop "Getting started with AI (-agents) in the browser" - [https://nico.dev/workshops/ai-agents](https://nico.dev/workshops/ai-agents)

@@ -36,7 +36,11 @@ const Products: React.FC = () => {
           </div>
         </div>
         <div className="h-48 w-full sm:h-64 lg:absolute lg:top-0 lg:right-0 lg:h-full lg:w-1/2">
-          <img alt="" src="./intro.webp" className="size-full object-cover" />
+          <img
+            alt=""
+            src="https://uploads.nico.dev/webshop-ai-agent/intro.webp"
+            className="size-full object-cover"
+          />
         </div>
       </div>
       {Object.entries(CATEGORIES).map(([slug, { label }], i) => (
