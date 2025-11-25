@@ -31,7 +31,6 @@ npm run dev
 ### Env
 This project supports two env variables in a `.env` file in the root of the project:
 - `PORT`: the local port on which the dev server will listen (optional)
-- `VITE_GOOGLE_GENERATIVE_AI_API_KEY`: the API_KEY for the Google Generative AI Studio [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
 ## Setup
 ```
@@ -63,13 +62,9 @@ This project supports two env variables in a `.env` file in the root of the proj
 *   **[Vite](https://vitejs.dev/)**: For fast development and building.
 
 ### AI Tasks
-*   **[WebLLM](https://mlc.ai/web-llm/)**: For integrating large language models.
-*   **[Hugging Face Transformers](https://huggingface.co/docs/transformers/index)**: For natural language processing (feature-extraction).
-*   **[AI SDK Google](https://ai.google.dev/)**: For interacting with Google's AI services.
-*   **[AI](https://sdk.vercel.ai/docs)**: For building AI-powered features.
+*   **[Transformers.js](https://huggingface.co/docs/transformers.js/en/index)**: For natural language processing: LLM (text-generation), vector-embeddings (feature-extraction).
 
 ### Developer Experience
-*   **[Zod](https://zod.dev/)**: For data validation and type safety, especially for structured output of AI models
 *   **[TypeScript](https://www.typescriptlang.org/)**: For static typing.
 *   **[ESLint](https://eslint.org/)**: For code quality.
 *   **[Prettier](https://prettier.io/)**: For code formatting.
