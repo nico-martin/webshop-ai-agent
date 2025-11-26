@@ -18,6 +18,7 @@ import {
   PreTrainedModel,
   PreTrainedTokenizer,
   Tensor,
+  //env,
 } from "@huggingface/transformers";
 import { type FC, type ReactElement, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
@@ -36,6 +37,11 @@ import {
 } from "../../utils/llm/webMcp.ts";
 import findSimilarFAQs from "../../utils/vectorSearch/findSimilarFAQs.ts";
 import ChatForm from "./ChatForm.tsx";
+
+/*
+env.allowLocalModels = true;
+model has to be in /public/models/onnx-community/granite-4.0-micro-ONNX-web/
+ */
 
 const Chat: FC = () => {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
